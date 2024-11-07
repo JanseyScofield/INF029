@@ -104,6 +104,9 @@ DiasMesesAnos q2(char datainicial[], char datafinal[])
 
       diferenca = diasDtFinal - diasDtFinal;
 
+      dma.qtdAnos = diferenca / 365;
+      dma.qtdMeses =  (diferenca % 365) / 30;
+      dma.qtdDias = ((diferenca % 365) % 30);
       dma.retorno = 1;
       return dma;
       
@@ -284,4 +287,53 @@ int diasData(DataQuebrada data){
   }
 
   return dias;
+}
+
+DiasMesesAnos diasEmData(int dias){
+  int iCont, diasDescontados;
+  DiasMesesAnos data;
+  data.qtdAnos = 0 ;
+  data.qtdMeses = 0 ;
+  data.qtdDias = 0 ;
+
+  iCont = 0;
+  while(1){
+    diasDescontados = checarAnoBissexto(iCont)? 366 : 365;
+    
+    if(dias - diasDescontados < 0){
+      break;
+    }
+
+    dias -= diasDescontados;
+    data.qtdAnos++;
+  }
+
+  iCont = 0;
+  while(1){
+    if(iCont == 4 || iCont == 6 || iCont == 9 || iCont == 10){
+      diasDescontados = 30;
+    }
+    else if(iCont == 2){
+      if(checarAnoBissexto(data.qtdAnos)){
+        diasDescontados = 29;
+      }
+      else{
+        diasDescontados = 28;
+      }
+    }
+    else{
+      diasDescontados = 30;
+    }
+
+    if(dias - diasDescontados < 0){
+        break;
+    }
+
+    dias -= diasDescontados;
+    data.qtdMeses ++;
+  }
+
+  data.qtdDias = dias;
+
+  return data;
 }
