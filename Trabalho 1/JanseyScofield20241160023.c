@@ -39,7 +39,7 @@ DataQuebrada quebraData(char data[]);
     1 -> se data válida
  @restrições
     Não utilizar funções próprias de string (ex: strtok)   
-    pode utilizar strlen para pegar o tamanho da string
+    pode utilizar strlen para pegar o tamanho da string 
  */
 
 int q1(char *data){
@@ -83,12 +83,8 @@ int q1(char *data){
 
 /*
  Q2 = diferença entre duas datas
- @objetivo
-    Calcular a diferença em anos, meses e dias entre duas datas
- @entrada
-    uma string datainicial, uma string datafinal. 
- @saida
-    Retorna um tipo DiasMesesAnos. No atributo retorno, deve ter os possíveis valores abaixo
+ @objetivoilizar funções próprias de string (ex: strtok)   
+    pode utilizar strlen para pegar o tamanho da string um tipo DiasMesesAnos. No atributo retorno, deve ter os possíveis valores abaixo
     1 -> cálculo de diferença realizado com sucesso
     2 -> datainicial inválida
     3 -> datafinal inválida
@@ -100,7 +96,7 @@ DiasMesesAnos q2(char datainicial[], char datafinal[])
 
     //calcule os dados e armazene nas três variáveis a seguir
     DiasMesesAnos dma;
-
+    
     if (q1(datainicial) == 0){
       dma.retorno = 2;
       return dma;
@@ -108,12 +104,20 @@ DiasMesesAnos q2(char datainicial[], char datafinal[])
       dma.retorno = 3;
       return dma;
     }else{
-      //verifique se a data final não é menor que a data inicial
+      DataQuebrada dtIncial = quebraData(datainicial);
+      DataQuebrada dtFinal = quebraData(datafinal);
+      int diasDtIncial, diasDtFinal, diferenca;
       
-      //calcule a distancia entre as datas
+      diasDtIncial = dtIncial.iDia + (dtIncial.iMes * 30) + (dtIncial.iAno * 365);
+      diasDtFinal = dtFinal.iDia + (dtFinal.iMes * 30) + (dtFinal.iAno * 365);
 
+      if(diasDtIncial > diasDtFinal){
+        dma.retorno = 4;
+        return dma;
+      }  
 
-      //se tudo der certo
+      diferenca = diasDtFinal - diasDtFinal;
+
       dma.retorno = 1;
       return dma;
       
