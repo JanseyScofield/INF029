@@ -1,4 +1,5 @@
 // #################################################
+
 //  Instituto Federal da Bahia
 //  Salvador - BA
 //  Curso de Análise e Desenvolvimento de Sistemas http://ads.ifba.edu.br
@@ -60,23 +61,8 @@ int q1(char *data){
 
     if(dataquebrada.iMes == 2){
         if(dataquebrada.iDia > 29) return 0;
-        if(dataquebrada.iDia == 29){
-            anoBissexto = 0;
-
-            if(dataquebrada.iAno % 4 == 0){
-                if(dataquebrada.iAno % 100 == 0){
-                    if(dataquebrada.iAno %  400 == 0){
-                        anoBissexto = 1;
-                    }
-                }
-                else{
-                    anoBissexto = 1;
-                }            
-            }
-        }
-        return anoBissexto;
+        if(dataquebrada.iDia == 29) return checarAnoBissexto(dataquebrada.iAno);
     }
-
     return 1;
 }
 
@@ -255,4 +241,51 @@ DataQuebrada quebraData(char data[]){
 	dq.valido = 1;
     
   return dq;
+}
+
+int checarAnoBissexto(int ano){
+  int anoBissexto = 0;
+
+  if(ano % 4 == 0){
+    if(ano % 100 == 0){
+       if(ano %  400 == 0){
+          anoBissexto = 1;
+        }
+    }
+    else{
+      anoBissexto = 1;
+    }            
+  }
+
+  return anoBissexto;
+}
+
+
+int diasData(DataQuebrada data){
+  int dias = data.iDia;
+  int iCont, anoBissexto;
+
+  for(iCont = 1; iCont < data.iMes; iCont++){
+    if(iCont == 4 || iCont == 6 || iCont == 9 || iCont == 10){
+      dias += 30;
+    }
+    else{
+      dias += 31;
+    }
+  }
+
+  for(iCont = 0; iCont < data.iAno; iCont++){
+    anoBissexto = 0;
+    
+    if(iCont % 4  == 0){
+      if(iCont % 100 == 0){
+        if(iCont % 400 == 0){
+          dias += 366;
+        }
+      }
+      else{
+        anoBissexto = 1;
+      }
+    }
+  }
 }
