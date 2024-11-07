@@ -94,13 +94,13 @@ DiasMesesAnos q2(char datainicial[], char datafinal[])
       DataQuebrada dtFinal = quebraData(datafinal);
       int diasDtIncial, diasDtFinal, diferenca;
       
-      diasDtIncial = dtIncial.iDia + (dtIncial.iMes * 30) + (dtIncial.iAno * 365);
-      diasDtFinal = dtFinal.iDia + (dtFinal.iMes * 30) + (dtFinal.iAno * 365);
+      diasDtIncial = diasData(dtIncial);
+      diasDtFinal = diasData(dtFinal);
 
       if(diasDtIncial > diasDtFinal){
         dma.retorno = 4;
         return dma;
-      }  
+      } 
 
       diferenca = diasDtFinal - diasDtFinal;
 
@@ -275,17 +275,13 @@ int diasData(DataQuebrada data){
   }
 
   for(iCont = 0; iCont < data.iAno; iCont++){
-    anoBissexto = 0;
-    
-    if(iCont % 4  == 0){
-      if(iCont % 100 == 0){
-        if(iCont % 400 == 0){
-          dias += 366;
-        }
-      }
-      else{
-        anoBissexto = 1;
-      }
+    if(checarAnoBissexto(iCont)){
+      dias +=  366;
+    }
+    else{
+      dias += 365;
     }
   }
+
+  return dias;
 }
