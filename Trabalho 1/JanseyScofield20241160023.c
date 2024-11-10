@@ -173,8 +173,23 @@ int q4(char *strTexto, char *strBusca, int posicoes[30])
 
 int q5(int num)
 {
+    int iCont;
+    int qtdDigitosNum =  1, casaNumInvertido = 1;
+    int numInvertido = 0;
 
-    return num;
+    while(num / (qtdDigitosNum * 10) > 0){
+      qtdDigitosNum *= 10;
+    }
+
+    while(qtdDigitosNum > 0){
+
+      numInvertido += (num / qtdDigitosNum) * casaNumInvertido;
+      num  -= (num / qtdDigitosNum) * qtdDigitosNum;
+      qtdDigitosNum /= 10;
+      casaNumInvertido *= 10;
+    }
+
+    return numInvertido;
 }
 
 /*
