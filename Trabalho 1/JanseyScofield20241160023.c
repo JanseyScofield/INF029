@@ -135,8 +135,31 @@ DiasMesesAnos q2(char datainicial[], char datafinal[])
 int q3(char *texto, char c, int isCaseSensitive)
 {
     int qtdOcorrencias = -1;
+    int iCont;
 
-    return qtdOcorrencias;
+    for(iCont = 0; iCont < strlen(texto); iCont++){
+      if(texto[iCont] == -61){
+        continue;
+      }
+      else if(isCaseSensitive){
+        if(texto[iCont] == c){
+          qtdOcorrencias++;
+        }
+      }
+      else{
+        if(c >= 'A' && c <= 'Z'){
+          c += ' ';
+        }
+        if(texto[iCont] >= 'A' && texto[iCont] <= 'Z'){
+          texto[iCont] += ' ';
+        }
+        if(texto[iCont] == c){
+           qtdOcorrencias++;
+        }
+      }
+    }
+
+    return qtdOcorrencias + 1;
 }
 
 /*
@@ -177,9 +200,7 @@ int q5(int num)
     int qtdDigitosNum =  1, casaNumInvertido = 1;
     int numInvertido = 0;
 
-    while(num / (qtdDigitosNum * 10) > 0){
-      qtdDigitosNum *= 10;
-    }
+    qtdDigitosNum = checarQtdCasaNum(num);
 
     while(qtdDigitosNum > 0){
 
@@ -205,6 +226,18 @@ int q5(int num)
 int q6(int numerobase, int numerobusca)
 {
     int qtdOcorrencias;
+    // int aux, casasNumBusca;
+    
+    // casasNumBusca =  checarQtdCasaNum(numerobusca);
+
+    // while(numerobase / casasNumBusca > 0){
+    //   aux = numerobase / casasNumBusca;
+    //   if(aux  == numerobusca){
+    //     qtdOcorrencias++;
+    //   }
+    //   numerobusca -= aux
+    // }
+
     return qtdOcorrencias;
 }
 
@@ -368,4 +401,14 @@ DataQuebrada diasEmData(int dias){
   printf("Data diferença : %d/%d/%d\n", data.iDia, data.iMes,  data.iAno);
  
   return data;
+}
+
+int checarQtdCasaNum(int num){
+  int qtdCasas = 1;
+
+  while(num / (qtdCasas * 10) > 0){
+    qtdCasas *= 10;
+  }
+
+  return qtdCasas;
 }
