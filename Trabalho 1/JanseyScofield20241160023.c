@@ -134,11 +134,10 @@ DiasMesesAnos q2(char datainicial[], char datafinal[])
  */
 int q3(char *texto, char c, int isCaseSensitive)
 {
-    int qtdOcorrencias = -1;
+    int qtdOcorrencias = 0;
     int iCont;
-
     for(iCont = 0; iCont < strlen(texto); iCont++){
-      if(texto[iCont] == -61){
+      if(texto[iCont] == -61 || c == -61){
         continue;
       }
       else if(isCaseSensitive){
@@ -147,19 +146,21 @@ int q3(char *texto, char c, int isCaseSensitive)
         }
       }
       else{
+        char caracterMin = c;
         if(c >= 'A' && c <= 'Z'){
-          c += ' ';
+          caracterMin += ' ';
         }
-        if(texto[iCont] >= 'A' && texto[iCont] <= 'Z'){
-          texto[iCont] += ' ';
+        char caracterTextoMin = texto[iCont];
+        if(caracterTextoMin >= 'A' && texto[iCont] <= 'Z'){
+          caracterTextoMin += ' ';
         }
-        if(texto[iCont] == c){
+        if(caracterTextoMin == caracterMin){
            qtdOcorrencias++;
         }
       }
     }
 
-    return qtdOcorrencias + 1;
+    return qtdOcorrencias;
 }
 
 /*
@@ -179,7 +180,35 @@ int q3(char *texto, char c, int isCaseSensitive)
  */
 int q4(char *strTexto, char *strBusca, int posicoes[30])
 {
-    int qtdOcorrencias = -1;
+    int qtdOcorrencias = 0;
+    int posicoesBusca = 0, aux;
+    int iCont, jCont, kCont;
+
+    for(iCont = 0; iCont < strlen(strTexto) - strlen(strBusca); iCont++){
+      aux = 0;
+      kCont = iCont;
+      for(jCont = 0; jCont < strlen(strBusca); jCont++){
+        if(strTexto[kCont] == -61 || strBusca[jCont] == -61){
+          continue;
+        }
+        else if(strTexto[kCont] == strBusca[jCont]){
+          aux++;
+          kCont++;
+        }
+        else{
+          break;
+        }
+      }
+
+      if(aux == strlen(strBusca)){
+        qtdOcorrencias++;
+        posicoes[posicoesBusca] = iCont + 1;
+        posicoes[posicoesBusca + 1] = kCont;
+        posicoesBusca += 2;
+        iCont += strlen(strBusca) - 1;
+      }
+
+    }
 
     return qtdOcorrencias;
 }
