@@ -82,7 +82,6 @@ DiasMesesAnos q2(char datainicial[], char datafinal[])
 
     //calcule os dados e armazene nas três variáveis a seguir
     DiasMesesAnos dma;
-    
     if (q1(datainicial) == 0){
       dma.retorno = 2;
       return dma;
@@ -94,28 +93,17 @@ DiasMesesAnos q2(char datainicial[], char datafinal[])
       DataQuebrada dtFinal = quebraData(datafinal);
       
       int diasDtIncial, diasDtFinal, diferenca;
-      printf("Data inicial: %d/%d/%d\n", dtIncial.iDia, dtIncial.iMes,  dtIncial.iAno);
-      printf("Data final: %d/%d/%d\n", dtFinal.iDia, dtFinal.iMes,  dtFinal.iAno);
+
       diasDtIncial = diasData(dtIncial);
       diasDtFinal = diasData(dtFinal);
       
-      printf("Dias inicial: %d\n",diasDtIncial);
-      printf("Dias final: %d\n",diasDtFinal);
-
-
       if(diasDtIncial > diasDtFinal){
         dma.retorno = 4;
         return dma;
       } 
 
-      diferenca = diasDtFinal - diasDtFinal;
-      DataQuebrada dataDiferenca  = diasEmData(diferenca);
-      printf("Data diferença : %d/%d/%d\n", dataDiferenca.iDia, dataDiferenca.iMes,  dataDiferenca.iAno);
-      dma.qtdAnos = dataDiferenca.iAno;
-      dma.qtdMeses =  dataDiferenca.iMes;
-      dma.qtdDias = dataDiferenca.iDia;
-
-      dma.retorno = 1;
+      diferenca = diasDtFinal - diasDtIncial;
+      diasDiferencaEmData(diferenca, &dma, dtIncial.iMes, dtIncial.iAno);
       return dma;
       
     }
@@ -375,61 +363,52 @@ int diasData(DataQuebrada data){
   return dias;
 }
 
-DataQuebrada diasEmData(int dias){
+void diasDiferencaEmData(int dias, DiasMesesAnos *data, int mesInicial, int anoInicial){
   int iCont, diasDescontados;
   int ano = 0;
   int mes = 0;
   int dia = 0;
 
-  printf("Dias: %d\n",dias);
-  iCont = 0;
   while(1){
-    diasDescontados = checarAnoBissexto(iCont)? 366 : 365;
-    
-    if(dias - diasDescontados < 0){
+    if(dias - 365 < 0){
       break;
     }
 
-    printf("Dias restantes %d\n", dias);
-
-    dias -= diasDescontados;
+    dias -= 365;
     ano ++;
-    iCont ++;
   }
 
-  iCont = 1;
   while(1){
-    if(iCont == 4 || iCont == 6 || iCont == 9 || iCont == 10){
+    if(mesInicial == 4 || mesInicial == 6 || mesInicial == 9 || mesInicial == 10){
       diasDescontados = 30;
     }
-    else if(iCont == 2){
-      if(checarAnoBissexto(ano)){
+    else if(mesInicial == 2){
+      if(checarAnoBissexto(anoInicial)){
         diasDescontados = 29;
+        dias -= 4;
       }
       else{
         diasDescontados = 28;
+        dias -= 2;
       }
     }
     else{
       diasDescontados = 31;
     }
-
+  
     if(dias - diasDescontados < 0){
         break;
     }
-    printf("Dias restantes %d\n", dias);
 
     dias -= diasDescontados;
     mes  ++;
-    iCont ++;
   }
 
   dia = dias;
-  DataQuebrada data =  {dia, mes, ano, 1};
-  printf("Data diferença : %d/%d/%d\n", dia, mes,  ano);
-  printf("Data diferença : %d/%d/%d\n", data.iDia, data.iMes,  data.iAno);
- 
-  return data;
+  data->qtdDias = dia;
+  data->qtdMeses = mes;
+  data->qtdAnos = ano;
+  data->retorno = 1;
 }
 
 int checarQtdCasaNum(int num){
