@@ -46,7 +46,7 @@ int fatorial(int x); //função utilizada para testes
 int checarAnoBissexto(int ano);
 int diasData(DataQuebrada data);
 int checarQtdCasaNum(int num);
-DataQuebrada diasEmData(int dias);
+void diasDiferencaEmData(int dias, DiasMesesAnos *data, int mesInicial, int anoInicial);
 int q1(char data[]);
 DiasMesesAnos q2(char datainicial[], char datafinal[]);
 int q3(char *texto, char c, int isCaseSensitive);
