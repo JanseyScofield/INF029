@@ -29,3 +29,50 @@ void printarTabuleiro(Tabuleiro tabuleiro){
     }
     printf("\n");
 }
+
+int checarVitoria(Tabuleiro tabuleiro, int jogador){
+    int condicaoA, condicaoB, condicaoC, condicaoD;
+    int iCont, jCont;
+
+     condicaoB = condicaoC = 0;
+
+    for(iCont = 0; iCont < 3; iCont++){
+        condicaoA = 0;
+        for(jCont = 0; jCont < 3; jCont++){
+            if(tabuleiro.tabuleiro[iCont][jCont] == jogador){
+                condicaoA++;
+            }
+            else{
+                break;
+            }
+        }
+        if(condicaoA == 3) return 1;
+    }
+
+    for(iCont = 0; iCont < 3; iCont++){
+        condicaoB = 0;
+        for(jCont = 0; jCont < 3; jCont++){
+            if(tabuleiro.tabuleiro[jCont][iCont] == jogador){
+                condicaoB++;
+            }
+            else{
+                break;
+            }
+        }
+        if(condicaoB == 3) return 1;
+    }
+
+    condicaoC = 0;
+    
+    for(iCont = 0; iCont < 3; iCont++){
+        if(tabuleiro.tabuleiro[iCont][iCont]  == jogador){
+            condicaoC++;
+        }
+        if(condicaoC == 3) return 1;
+    }
+
+    condicaoD = tabuleiro.tabuleiro[2][2] == jogador && tabuleiro.tabuleiro[1][1] == jogador && tabuleiro.tabuleiro[2][0] == jogador;
+
+    return condicaoD;
+    
+}
