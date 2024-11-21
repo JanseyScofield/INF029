@@ -76,3 +76,42 @@ int checarVitoria(Tabuleiro tabuleiro, int jogador){
     return condicaoD;
     
 }
+
+void realizarJogada(Tabuleiro *tabuleiro, int jogador){
+    char casa[3];
+    char letras[] = {'A', 'B', 'C'};
+    char numeros[]  = {'1', '2', '3'};
+    int iCont;
+    int posicaoLetra = -1, posicaoNumero  = -1;
+
+    while(1){
+        printf("Digite a casa que deseja jogar: ");
+        fgets(casa,3,stdin);
+        
+        for(iCont = 0; iCont < 3; iCont++){
+            if(letras[iCont] == casa[0]){
+                posicaoLetra  = iCont;
+            }
+        }
+
+        for(iCont = 0; iCont < 3; iCont++){
+            if(numeros[iCont] == casa[1]){
+                posicaoNumero  = iCont;
+            }
+        }
+
+        if(posicaoLetra == -1 || posicaoNumero == -1){
+            printf("Casa invalida. Digite novamente.\n");
+        }
+        else{
+            if(tabuleiro->tabuleiro[posicaoLetra][posicaoNumero] != 0){
+                printf("Essa casa ja esta preenchida, digite outra.\n");
+            }
+            else{
+                tabuleiro->tabuleiro[posicaoLetra][posicaoNumero] = jogador;
+                break;
+            }
+        }
+    }
+
+}
