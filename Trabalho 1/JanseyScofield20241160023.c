@@ -220,7 +220,6 @@ int q5(int num)
     qtdDigitosNum = checarQtdCasaNum(num);
 
     while(qtdDigitosNum > 0){
-
       numInvertido += (num / qtdDigitosNum) * casaNumInvertido;
       num  -= (num / qtdDigitosNum) * qtdDigitosNum;
       qtdDigitosNum /= 10;
@@ -243,19 +242,42 @@ int q5(int num)
 int q6(int numerobase, int numerobusca)
 {
     int qtdOcorrencias;
-    // int aux, casasNumBusca;
+    int qtdCasaNumBase, qtdCasaNumBusca;
+    int iCont;
+    int aux, divisor;
+    int posicoes[100];
     
-    // casasNumBusca =  checarQtdCasaNum(numerobusca);
+    divisor = checarQtdCasaNum(numerobase)/ 10;
 
-    // while(numerobase / casasNumBusca > 0){
-    //   aux = numerobase / casasNumBusca;
-    //   if(aux  == numerobusca){
-    //     qtdOcorrencias++;
-    //   }
-    //   numerobusca -= aux
-    // }
+    char *numBaseStr = malloc(sizeof(char) * (qtdCasaNumBase + 1));
+    char *numBuscaStr = malloc(sizeof(char) * (qtdCasaNumBase + 1));
+   divisor = 1;
+  
+  
+    iCont = 0;
+    do{
+        aux = numerobase / divisor;
+        numBaseStr[iCont] = aux + 48;
+        numerobase %= divisor; 
+        divisor /= 10;
+        iCont++;
+    }while(divisor / 10 != 0);
+    numBaseStr[iCont] = '\0';
 
-    return qtdOcorrencias;
+    divisor = checarQtdCasaNum(numerobusca) / 10;
+    
+    // iCont = 0;
+    // do{
+    //     aux = numerobusca / divisor;
+    //     numBuscaStr[iCont] = aux + 48;
+    //     numerobusca %= divisor; 
+    //     divisor /= 10;
+    //     iCont++;
+    // }while(divisor / 10 != 0); 
+    //numBuscaStr[iCont] = '\0';
+
+     //qtdOcorrencias = q4(numBaseStr,numBuscaStr, posicoes);
+    return 1;
 }
 
 
