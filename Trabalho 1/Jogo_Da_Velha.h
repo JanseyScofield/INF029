@@ -7,4 +7,5 @@ typedef struct
 }Tabuleiro;
 
 void printarTabuleiro(Tabuleiro tabuleiro);
+int checarVitoria(Tabuleiro tabuleiro, int jogador);
 void jogoDaVelha();
