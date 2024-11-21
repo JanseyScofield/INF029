@@ -8,4 +8,5 @@ typedef struct
 
 void printarTabuleiro(Tabuleiro tabuleiro);
 int checarVitoria(Tabuleiro tabuleiro, int jogador);
+void realizarJogada(Tabuleiro *tabuleiro, int jogador);
 void jogoDaVelha();
