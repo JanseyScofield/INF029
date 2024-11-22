@@ -217,7 +217,7 @@ int q5(int num)
     int qtdDigitosNum =  1, casaNumInvertido = 1;
     int numInvertido = 0;
 
-    qtdDigitosNum = checarQtdCasaNum(num);
+    qtdDigitosNum = checarQtdCasaNum(num) / 10;
 
     while(qtdDigitosNum > 0){
       numInvertido += (num / qtdDigitosNum) * casaNumInvertido;
@@ -241,43 +241,23 @@ int q5(int num)
 
 int q6(int numerobase, int numerobusca)
 {
-    int qtdOcorrencias;
-    int qtdCasaNumBase, qtdCasaNumBusca;
-    int iCont;
-    int aux, divisor;
-    int posicoes[100];
-    
-    divisor = checarQtdCasaNum(numerobase)/ 10;
+  int qtdOcorrencias = 0;
+  int divisor = 1;
 
-    char *numBaseStr = malloc(sizeof(char) * (qtdCasaNumBase + 1));
-    char *numBuscaStr = malloc(sizeof(char) * (qtdCasaNumBase + 1));
-   divisor = 1;
+  divisor = checarQtdCasaNum(numerobusca);
+
+  while (numerobase > 0)
+  {
+    if (numerobase % divisor == numerobusca)
+    {
+      qtdOcorrencias++;
+      numerobase /= divisor;
+    }
+    else
+      numerobase /= 10;
+  } 
   
-  
-    iCont = 0;
-    do{
-        aux = numerobase / divisor;
-        numBaseStr[iCont] = aux + 48;
-        numerobase %= divisor; 
-        divisor /= 10;
-        iCont++;
-    }while(divisor / 10 != 0);
-    numBaseStr[iCont] = '\0';
-
-    divisor = checarQtdCasaNum(numerobusca) / 10;
-    
-    // iCont = 0;
-    // do{
-    //     aux = numerobusca / divisor;
-    //     numBuscaStr[iCont] = aux + 48;
-    //     numerobusca %= divisor; 
-    //     divisor /= 10;
-    //     iCont++;
-    // }while(divisor / 10 != 0); 
-    //numBuscaStr[iCont] = '\0';
-
-     //qtdOcorrencias = q4(numBaseStr,numBuscaStr, posicoes);
-    return 1;
+  return qtdOcorrencias;
 }
 
 
@@ -436,7 +416,7 @@ void diasDiferencaEmData(int dias, DiasMesesAnos *data, int mesInicial, int anoI
 int checarQtdCasaNum(int num){
   int qtdCasas = 1;
 
-  while(num / (qtdCasas * 10) > 0){
+  while(num / (qtdCasas) > 0){
     qtdCasas *= 10;
   }
 
