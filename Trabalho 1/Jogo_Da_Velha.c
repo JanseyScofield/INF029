@@ -139,13 +139,16 @@ void jogoDaVelha(){
     int vitoria = 0;
     int jogadorRodada;
 
-    while(vitoria == 0 || tabuleiro.rodada == 9){
+    while(vitoria == 0){
         jogadorRodada = tabuleiro.rodada % 2 == 0? 2 : 1;
         printf("Jogador %d: \n", jogadorRodada);
         printarTabuleiro(tabuleiro);
         realizarJogada(&tabuleiro, jogadorRodada);
         vitoria = checarVitoria(tabuleiro, jogadorRodada);
         tabuleiro.rodada++;
+        if(tabuleiro.rodada == 9){
+            break;
+        }
         limparBuffer();
     }
 
