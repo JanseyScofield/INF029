@@ -1,5 +1,22 @@
 #include "Jogo_Da_Velha.h"
 
+void limparBuffer(){
+    int c = 0;
+    while ((c = getchar()) != '\n' && c != EOF) {}
+    
+}
+
+void inicializarTabuleiro(Tabuleiro *tabuleiro){
+    int iCont, jCont;
+
+    for(iCont = 0; iCont  < 3; iCont++){
+        for(jCont = 0; jCont < 3; jCont++){
+            tabuleiro->tabuleiro[iCont][jCont] = 0;
+        }
+    }
+
+    tabuleiro->rodada = 1;
+}
 
 void printarTabuleiro(Tabuleiro tabuleiro){
     char letras[] = {'A', 'B','C'};
@@ -71,7 +88,7 @@ int checarVitoria(Tabuleiro tabuleiro, int jogador){
         if(condicaoC == 3) return 1;
     }
 
-    condicaoD = tabuleiro.tabuleiro[2][2] == jogador && tabuleiro.tabuleiro[1][1] == jogador && tabuleiro.tabuleiro[2][0] == jogador;
+    condicaoD = tabuleiro.tabuleiro[0][2] == jogador && tabuleiro.tabuleiro[1][1] == jogador && tabuleiro.tabuleiro[2][0] == jogador;
 
     return condicaoD;
     
@@ -114,4 +131,37 @@ void realizarJogada(Tabuleiro *tabuleiro, int jogador){
         }
     }
 
+}
+
+void jogoDaVelha(){
+    Tabuleiro tabuleiro;
+    inicializarTabuleiro(&tabuleiro);
+    int vitoria = 0;
+    int jogadorRodada;
+
+    while(vitoria == 0 || tabuleiro.rodada == 9){
+        jogadorRodada = tabuleiro.rodada % 2 == 0? 2 : 1;
+        printf("Jogador %d: \n", jogadorRodada);
+        printarTabuleiro(tabuleiro);
+        realizarJogada(&tabuleiro, jogadorRodada);
+        vitoria = checarVitoria(tabuleiro, jogadorRodada);
+        tabuleiro.rodada++;
+        limparBuffer();
+    }
+
+    printf("\n");
+    printarTabuleiro(tabuleiro);
+
+    if(vitoria == 0){
+        printf("Empate!\n");
+    }
+    else{
+        printf("Jogador %d venceu!\n", jogadorRodada);
+    }
+}
+
+
+int main(){
+    jogoDaVelha();
+    return 1;
 }
