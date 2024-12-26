@@ -21,18 +21,19 @@ int criarEstruturaAuxiliar(int posicao, int tamanho)
 {
 
     int retorno = 0;
-    // a posicao pode já existir estrutura auxiliar
-    retorno = JA_TEM_ESTRUTURA_AUXILIAR;
     // se posição é um valor válido {entre 1 e 10}
-    retorno = POSICAO_INVALIDA;
-    // o tamanho ser muito grande
-    retorno = SEM_ESPACO_DE_MEMORIA;
-    // o tamanho nao pode ser menor que 1
-    retorno = TAMANHO_INVALIDO;
-    // deu tudo certo, crie
-    retorno = SUCESSO;
+    if(posicao < 1 || posicao > 10) return POSICAO_INVALIDA;
 
-    return retorno;
+    if(vetorPrincipal[posicao - 1] != NULL) return JA_TEM_ESTRUTURA_AUXILIAR;
+    
+    if(tamanho > 50) return SEM_ESPACO_DE_MEMORIA;
+    // o tamanho nao pode ser menor que 1
+    if(tamanho < 1) return TAMANHO_INVALIDO;
+    // deu tudo certo, crie
+    vetorPrincipal[posicao - 1] = malloc(sizeof(EstrutraAux));
+    vetorPrincipal[posicao - 1]->tam = tamanho;
+    vetorPrincipal[posicao - 1]-> posUltimoValor = 0;
+    return SUCESSO;
 }
 
 /*
