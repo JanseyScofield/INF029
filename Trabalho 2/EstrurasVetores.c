@@ -131,7 +131,7 @@ int excluirNumeroEspecificoDeEstrutura(int posicao, int valor)
     }
 
     aux = vetorPrincipal[posicao - 1]->array[posicaoValor];
-    for(iCont = posicaoValor + 1; iCont < vetorPrincipal[posicao - 1]->posUltimoValor; iCont++){
+    for(iCont = posicaoValor + 1; iCont <= vetorPrincipal[posicao - 1]->posUltimoValor; iCont++){
         vetorPrincipal[posicao - 1]->array[iCont - 1] = vetorPrincipal[posicao - 1]->array[iCont];
     }
 
@@ -193,12 +193,12 @@ Rertono (int)
 */
 int getDadosOrdenadosEstruturaAuxiliar(int posicao, int vetorAux[])
 {
-    int retorno = getDadosEstruturasAuxiliares(posicao, vetorAux);
+    int retorno = getDadosEstruturaAuxiliar(posicao, vetorAux);
     if(retorno == SEM_ESTRUTURA_AUXILIAR || retorno == POSICAO_INVALIDA){
         return retorno;
     }
     
-
+    insertionSort(vetorAux, vetorPrincipal[posicao  - 1]->tam);
 
     return retorno;
 }
