@@ -33,6 +33,7 @@ int criarEstruturaAuxiliar(int posicao, int tamanho)
     vetorPrincipal[posicao - 1] = malloc(sizeof(EstrutraAux));
     vetorPrincipal[posicao - 1]->tam = tamanho;
     vetorPrincipal[posicao - 1]-> posUltimoValor = 0;
+    vetorPrincipal[posicao - 1]->array = malloc(sizeof(int) * tamanho);
     return SUCESSO;
 }
 
@@ -46,25 +47,19 @@ Rertono (int)
 CONSTANTES
 */
 int inserirNumeroEmEstrutura(int posicao, int valor){
-    int retorno = 0;
-    int existeEstruturaAuxiliar = 0;
-    int temEspaco = 0;
-    int posicao_invalida = 0;
-
     if (posicao < 1 || posicao > 10)
         return POSICAO_INVALIDA;
     // testar se existe a estrutura auxiliar
-    if(vetorPrincipal[posicao] == NULL){
+    if(vetorPrincipal[posicao - 1] == NULL){
         return SEM_ESTRUTURA_AUXILIAR;
     }
 
-    if (vetorPrincipal[posicao]->posUltimoValor + 1 == vetorPrincipal[posicao]->tam){
+    if (vetorPrincipal[posicao - 1]->posUltimoValor == vetorPrincipal[posicao - 1]->tam){
         return SEM_ESPACO;
     }
     
-    vetorPrincipal[posicao]->array[vetorPrincipal[posicao]->posUltimoValor] = valor;
-    vetorPrincipal[posicao]->posUltimoValor++;
-
+    vetorPrincipal[posicao - 1]->array[vetorPrincipal[posicao - 1]->posUltimoValor] = valor;
+    vetorPrincipal[posicao - 1]->posUltimoValor++;
     return SUCESSO;
 }
 
@@ -254,8 +249,12 @@ Objetivo: inicializa o programa. deve ser chamado ao inicio do programa
 
 */
 
-void inicializar()
-{
+void inicializar(){
+    int iCont;
+
+    for(iCont = 0; iCont < 10; iCont++){
+        vetorPrincipal[iCont] = NULL;
+    }
 }
 
 /*
