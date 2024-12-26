@@ -108,6 +108,10 @@ Rertono (int)
 */
 int excluirNumeroEspecificoDeEstrutura(int posicao, int valor)
 {
+    int posicaoValor;
+    int aux;
+    int iCont;
+
     if(posicao < 1 || posicao > 10){
         return POSICAO_INVALIDA;
     }
@@ -120,8 +124,20 @@ int excluirNumeroEspecificoDeEstrutura(int posicao, int valor)
         return ESTRUTURA_AUXILIAR_VAZIA;
     }
 
+    posicaoValor = buscarValorEmVetorAuxiliar(valor, *vetorPrincipal[posicao - 1]);
+    
+    if(posicaoValor ==  -1){
+        return NUMERO_INEXISTENTE;
+    }
 
+    aux = vetorPrincipal[posicao - 1]->array[posicaoValor];
+    for(iCont = posicaoValor + 1; iCont < vetorPrincipal[posicao - 1]->posUltimoValor; iCont++){
+        vetorPrincipal[posicao - 1]->array[iCont - 1] = vetorPrincipal[posicao - 1]->array[iCont];
+    }
 
+    vetorPrincipal[posicao - 1]->array[vetorPrincipal[posicao - 1]->posUltimoValor] = aux;
+    vetorPrincipal[posicao - 1]->posUltimoValor--;
+    
     return SUCESSO;
 }
 
