@@ -89,7 +89,7 @@ int excluirNumeroDoFinaldaEstrutura(int posicao)
     }
 
     vetorPrincipal[posicao - 1]->posUltimoValor--;
-        
+
     return SUCESSO;
 }
 
@@ -108,8 +108,21 @@ Rertono (int)
 */
 int excluirNumeroEspecificoDeEstrutura(int posicao, int valor)
 {
-    int retorno = SUCESSO;
-    return retorno;
+    if(posicao < 1 || posicao > 10){
+        return POSICAO_INVALIDA;
+    }
+
+    if(vetorPrincipal[posicao - 1] == NULL){
+        return SEM_ESTRUTURA_AUXILIAR;
+    }
+
+    if(vetorPrincipal[posicao - 1]->posUltimoValor == 0){
+        return ESTRUTURA_AUXILIAR_VAZIA;
+    }
+
+
+
+    return SUCESSO;
 }
 
 // se posição é um valor válido {entre 1 e 10}
@@ -278,4 +291,16 @@ para poder liberar todos os espaços de memória das estruturas auxiliares.
 
 void finalizar()
 {
+}
+
+int buscarValorEmVetorAuxiliar(int valor, EstrutraAux estruturaAuxiliar){
+    int iCont;
+
+    for(iCont = 0; iCont < estruturaAuxiliar.posUltimoValor; iCont++){
+        if(estruturaAuxiliar.array[iCont] ==  valor){
+            return iCont;
+        }
+    }
+
+    return -1;
 }
