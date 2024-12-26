@@ -193,10 +193,13 @@ Rertono (int)
 */
 int getDadosOrdenadosEstruturaAuxiliar(int posicao, int vetorAux[])
 {
-
-    int retorno = 0;
-
+    int retorno = getDadosEstruturasAuxiliares(posicao, vetorAux);
+    if(retorno == SEM_ESTRUTURA_AUXILIAR || retorno == POSICAO_INVALIDA){
+        return retorno;
+    }
     
+
+
     return retorno;
 }
 
@@ -330,4 +333,20 @@ int buscarValorEmVetorAuxiliar(int valor, EstrutraAux estruturaAuxiliar){
     }
 
     return -1;
+}
+
+void insertionSort(int array[], int size){
+    int iCont, jCont, key;
+
+    for(iCont  = 1; iCont < size; iCont++){
+        key = array[iCont];
+        jCont = iCont - 1;
+
+        while(jCont >= 0 && array[jCont] > key){
+            array[jCont + 1] = array[jCont];
+            jCont--;
+        }
+
+        array[jCont + 1] = key;
+    }
 }

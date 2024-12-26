@@ -34,6 +34,7 @@ No *montarListaEncadeadaComCabecote();
 void getDadosListaEncadeadaComCabecote(No *inicio, int vetorAux[]);
 void destruirListaEncadeadaComCabecote(No **inicio);
 int buscarValorEmVetorAuxiliar(int valor, EstrutraAux estruturaAuxiliar);
+void insertionSort(int array[], int size);
 
 void inicializar();
 void finalizar();
