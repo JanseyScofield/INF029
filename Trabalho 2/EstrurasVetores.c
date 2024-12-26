@@ -26,7 +26,7 @@ int criarEstruturaAuxiliar(int posicao, int tamanho)
 
     if(vetorPrincipal[posicao - 1] != NULL) return JA_TEM_ESTRUTURA_AUXILIAR;
     
-    if(tamanho > 50) return SEM_ESPACO_DE_MEMORIA;
+    if(tamanho > 10) return SEM_ESPACO_DE_MEMORIA;
     // o tamanho nao pode ser menor que 1
     if(tamanho < 1) return TAMANHO_INVALIDO;
     // deu tudo certo, crie
@@ -137,7 +137,7 @@ int excluirNumeroEspecificoDeEstrutura(int posicao, int valor)
 
     vetorPrincipal[posicao - 1]->array[vetorPrincipal[posicao - 1]->posUltimoValor] = aux;
     vetorPrincipal[posicao - 1]->posUltimoValor--;
-    
+
     return SUCESSO;
 }
 
@@ -165,10 +165,21 @@ Retorno (int)
 */
 int getDadosEstruturaAuxiliar(int posicao, int vetorAux[])
 {
+    int iCont;
 
-    int retorno = 0;
+    if(posicao < 1 || posicao > 10){
+        return POSICAO_INVALIDA;
+    }
 
-    return retorno;
+    if(vetorPrincipal[posicao - 1] == NULL){
+        return SEM_ESTRUTURA_AUXILIAR;
+    }
+
+    for(iCont = 0; iCont <= vetorPrincipal[posicao  - 1]->posUltimoValor; iCont++){
+        vetorAux[iCont] = vetorPrincipal[posicao - 1]->array[iCont];
+    }
+
+    return SUCESSO;
 }
 
 /*
@@ -312,7 +323,7 @@ void finalizar()
 int buscarValorEmVetorAuxiliar(int valor, EstrutraAux estruturaAuxiliar){
     int iCont;
 
-    for(iCont = 0; iCont < estruturaAuxiliar.posUltimoValor; iCont++){
+    for(iCont = 0; iCont <= estruturaAuxiliar.posUltimoValor; iCont++){
         if(estruturaAuxiliar.array[iCont] ==  valor){
             return iCont;
         }
