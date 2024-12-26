@@ -4,7 +4,7 @@
 
 #include "EstruturaVetores.h"
 
-int *vetorPrincipal[TAM];
+EstrutraAux *vetorPrincipal[TAM];
 
 /*
 Objetivo: criar estrutura auxiliar na posição 'posicao'.
@@ -51,28 +51,23 @@ int inserirNumeroEmEstrutura(int posicao, int valor)
     int temEspaco = 0;
     int posicao_invalida = 0;
 
-    if (posicao_invalida)
-        retorno = POSICAO_INVALIDA;
+    if (posicao < 1 || posicao > 10)
+        return POSICAO_INVALIDA;
+    // testar se existe a estrutura auxiliar
+    if(vetorPrincipal[posicao] == NULL){
+        return SEM_ESTRUTURA_AUXILIAR;
+    }
+
+    if (temEspaco)
+    {
+        //insere
+        retorno = SUCESSO;
+    }
     else
     {
-        // testar se existe a estrutura auxiliar
-        if (existeEstruturaAuxiliar)
-        {
-            if (temEspaco)
-            {
-                //insere
-                retorno = SUCESSO;
-            }
-            else
-            {
-                retorno = SEM_ESPACO;
-            }
-        }
-        else
-        {
-            retorno = SEM_ESTRUTURA_AUXILIAR;
-        }
+        retorno = SEM_ESPACO;
     }
+    
 
     return retorno;
 }
