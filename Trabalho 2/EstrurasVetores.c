@@ -44,8 +44,7 @@ Rertono (int)
     POSICAO_INVALIDA - Posição inválida para estrutura auxiliar
 CONSTANTES
 */
-int inserirNumeroEmEstrutura(int posicao, int valor)
-{
+int inserirNumeroEmEstrutura(int posicao, int valor){
     int retorno = 0;
     int existeEstruturaAuxiliar = 0;
     int temEspaco = 0;
@@ -58,18 +57,14 @@ int inserirNumeroEmEstrutura(int posicao, int valor)
         return SEM_ESTRUTURA_AUXILIAR;
     }
 
-    if (temEspaco)
-    {
-        //insere
-        retorno = SUCESSO;
-    }
-    else
-    {
-        retorno = SEM_ESPACO;
+    if (vetorPrincipal[posicao]->posUltimoValor + 1 == vetorPrincipal[posicao]->tam){
+        return SEM_ESPACO;
     }
     
+    vetorPrincipal[posicao]->array[vetorPrincipal[posicao]->posUltimoValor] = valor;
+    vetorPrincipal[posicao]->posUltimoValor++;
 
-    return retorno;
+    return SUCESSO;
 }
 
 /*
