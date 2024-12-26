@@ -76,8 +76,21 @@ Rertono (int)
 */
 int excluirNumeroDoFinaldaEstrutura(int posicao)
 {
-    int retorno = SUCESSO;
-    return retorno;
+    if(posicao < 1 || posicao > 10){
+        return POSICAO_INVALIDA;
+    }
+
+    if(vetorPrincipal[posicao - 1] == NULL){
+        return SEM_ESTRUTURA_AUXILIAR;
+    }
+
+    if(vetorPrincipal[posicao - 1]->posUltimoValor == 0){
+        return ESTRUTURA_AUXILIAR_VAZIA;
+    }
+
+    vetorPrincipal[posicao - 1]->posUltimoValor--;
+        
+    return SUCESSO;
 }
 
 /*
