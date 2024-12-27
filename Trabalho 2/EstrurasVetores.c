@@ -248,8 +248,21 @@ Rertono (int)
 */
 int getDadosOrdenadosDeTodasEstruturasAuxiliares(int vetorAux[])
 {
+    int iCont, tamTotal = 0;
+    int retorno;
 
-    int retorno = 0;
+    retorno =  getDadosDeTodasEstruturasAuxiliares(vetorAux);
+    if(retorno == TODAS_ESTRUTURAS_AUXILIARES_VAZIAS){
+        return retorno;
+    }
+
+    for(iCont = 0; iCont < TAM; iCont++){
+        if(vetorPrincipal[iCont] != NULL){
+            tamTotal += vetorPrincipal[iCont]->posUltimoValor;
+        }  
+    }
+
+    insertionSort(vetorAux, tamTotal);
     return retorno;
 }
 
