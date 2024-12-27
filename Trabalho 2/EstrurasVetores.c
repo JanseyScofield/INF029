@@ -21,17 +21,21 @@ int criarEstruturaAuxiliar(int posicao, int tamanho)
 
     int retorno = 0;
     // se posição é um valor válido {entre 1 e 10}
-    if(posicao < 1 || posicao > 10) return POSICAO_INVALIDA;
+    if (posicao < 1 || posicao > 10)
+        return POSICAO_INVALIDA;
 
-    if(vetorPrincipal[posicao - 1] != NULL) return JA_TEM_ESTRUTURA_AUXILIAR;
-    
-    if(tamanho > 10) return SEM_ESPACO_DE_MEMORIA;
+    if (vetorPrincipal[posicao - 1] != NULL)
+        return JA_TEM_ESTRUTURA_AUXILIAR;
+
+    if (tamanho > 10)
+        return SEM_ESPACO_DE_MEMORIA;
     // o tamanho nao pode ser menor que 1
-    if(tamanho < 1) return TAMANHO_INVALIDO;
+    if (tamanho < 1)
+        return TAMANHO_INVALIDO;
     // deu tudo certo, crie
     vetorPrincipal[posicao - 1] = malloc(sizeof(EstrutraAux));
     vetorPrincipal[posicao - 1]->tam = tamanho;
-    vetorPrincipal[posicao - 1]-> posUltimoValor = 0;
+    vetorPrincipal[posicao - 1]->posUltimoValor = 0;
     vetorPrincipal[posicao - 1]->array = malloc(sizeof(int) * tamanho);
     return SUCESSO;
 }
@@ -45,18 +49,21 @@ Rertono (int)
     POSICAO_INVALIDA - Posição inválida para estrutura auxiliar
 CONSTANTES
 */
-int inserirNumeroEmEstrutura(int posicao, int valor){
+int inserirNumeroEmEstrutura(int posicao, int valor)
+{
     if (posicao < 1 || posicao > 10)
         return POSICAO_INVALIDA;
     // testar se existe a estrutura auxiliar
-    if(vetorPrincipal[posicao - 1] == NULL){
+    if (vetorPrincipal[posicao - 1] == NULL)
+    {
         return SEM_ESTRUTURA_AUXILIAR;
     }
 
-    if (vetorPrincipal[posicao - 1]->posUltimoValor == vetorPrincipal[posicao - 1]->tam){
+    if (vetorPrincipal[posicao - 1]->posUltimoValor == vetorPrincipal[posicao - 1]->tam)
+    {
         return SEM_ESPACO;
     }
-    
+
     vetorPrincipal[posicao - 1]->array[vetorPrincipal[posicao - 1]->posUltimoValor] = valor;
     vetorPrincipal[posicao - 1]->posUltimoValor++;
     return SUCESSO;
@@ -75,15 +82,18 @@ Rertono (int)
 */
 int excluirNumeroDoFinaldaEstrutura(int posicao)
 {
-    if(posicao < 1 || posicao > 10){
+    if (posicao < 1 || posicao > 10)
+    {
         return POSICAO_INVALIDA;
     }
 
-    if(vetorPrincipal[posicao - 1] == NULL){
+    if (vetorPrincipal[posicao - 1] == NULL)
+    {
         return SEM_ESTRUTURA_AUXILIAR;
     }
 
-    if(vetorPrincipal[posicao - 1]->posUltimoValor == 0){
+    if (vetorPrincipal[posicao - 1]->posUltimoValor == 0)
+    {
         return ESTRUTURA_AUXILIAR_VAZIA;
     }
 
@@ -111,26 +121,31 @@ int excluirNumeroEspecificoDeEstrutura(int posicao, int valor)
     int aux;
     int iCont;
 
-    if(posicao < 1 || posicao > 10){
+    if (posicao < 1 || posicao > 10)
+    {
         return POSICAO_INVALIDA;
     }
 
-    if(vetorPrincipal[posicao - 1] == NULL){
+    if (vetorPrincipal[posicao - 1] == NULL)
+    {
         return SEM_ESTRUTURA_AUXILIAR;
     }
 
-    if(vetorPrincipal[posicao - 1]->posUltimoValor == 0){
+    if (vetorPrincipal[posicao - 1]->posUltimoValor == 0)
+    {
         return ESTRUTURA_AUXILIAR_VAZIA;
     }
 
     posicaoValor = buscarValorEmVetorAuxiliar(valor, *vetorPrincipal[posicao - 1]);
-    
-    if(posicaoValor ==  -1){
+
+    if (posicaoValor == -1)
+    {
         return NUMERO_INEXISTENTE;
     }
 
     aux = vetorPrincipal[posicao - 1]->array[posicaoValor];
-    for(iCont = posicaoValor + 1; iCont <= vetorPrincipal[posicao - 1]->posUltimoValor; iCont++){
+    for (iCont = posicaoValor + 1; iCont <= vetorPrincipal[posicao - 1]->posUltimoValor; iCont++)
+    {
         vetorPrincipal[posicao - 1]->array[iCont - 1] = vetorPrincipal[posicao - 1]->array[iCont];
     }
 
@@ -166,15 +181,18 @@ int getDadosEstruturaAuxiliar(int posicao, int vetorAux[])
 {
     int iCont;
 
-    if(posicao < 1 || posicao > 10){
+    if (posicao < 1 || posicao > 10)
+    {
         return POSICAO_INVALIDA;
     }
 
-    if(vetorPrincipal[posicao - 1] == NULL){
+    if (vetorPrincipal[posicao - 1] == NULL)
+    {
         return SEM_ESTRUTURA_AUXILIAR;
     }
 
-    for(iCont = 0; iCont < vetorPrincipal[posicao  - 1]->posUltimoValor; iCont++){
+    for (iCont = 0; iCont < vetorPrincipal[posicao - 1]->posUltimoValor; iCont++)
+    {
         vetorAux[iCont] = vetorPrincipal[posicao - 1]->array[iCont];
     }
 
@@ -193,11 +211,12 @@ Rertono (int)
 int getDadosOrdenadosEstruturaAuxiliar(int posicao, int vetorAux[])
 {
     int retorno = getDadosEstruturaAuxiliar(posicao, vetorAux);
-    if(retorno == SEM_ESTRUTURA_AUXILIAR || retorno == POSICAO_INVALIDA){
+    if (retorno == SEM_ESTRUTURA_AUXILIAR || retorno == POSICAO_INVALIDA)
+    {
         return retorno;
     }
-    
-    insertionSort(vetorAux, vetorPrincipal[posicao  - 1]->posUltimoValor);
+
+    insertionSort(vetorAux, vetorPrincipal[posicao - 1]->posUltimoValor);
 
     return retorno;
 }
@@ -210,25 +229,33 @@ Rertono (int)
     SUCESSO - recuperado com sucesso os valores da estrutura na posição 'posicao'
     TODAS_ESTRUTURAS_AUXILIARES_VAZIAS - todas as estruturas auxiliares estão vazias
 */
-int getDadosDeTodasEstruturasAuxiliares(int vetorAux[]){
+int getDadosDeTodasEstruturasAuxiliares(int vetorAux[])
+{
     int iCont, jCont, kCont;
-    
-    for(iCont = 1; iCont < TAM; iCont ++){
-        if(vetorPrincipal[iCont] != NULL){
-           if(vetorPrincipal[iCont]->posUltimoValor != 0){
+
+    for (iCont = 1; iCont < TAM; iCont++)
+    {
+        if (vetorPrincipal[iCont] != NULL)
+        {
+            if (vetorPrincipal[iCont]->posUltimoValor != 0)
+            {
                 break;
-           }
+            }
         }
     }
-    
-    if(iCont == TAM){
+
+    if (iCont == TAM)
+    {
         return TODAS_ESTRUTURAS_AUXILIARES_VAZIAS;
     }
-    
+
     kCont = 0;
-    for(iCont = 0; iCont < TAM; iCont++){
-        if(vetorPrincipal[iCont] != NULL){
-            for(jCont = 0; jCont < vetorPrincipal[iCont]->posUltimoValor;jCont++){
+    for (iCont = 0; iCont < TAM; iCont++)
+    {
+        if (vetorPrincipal[iCont] != NULL)
+        {
+            for (jCont = 0; jCont < vetorPrincipal[iCont]->posUltimoValor; jCont++)
+            {
                 vetorAux[kCont] = vetorPrincipal[iCont]->array[jCont];
                 kCont++;
             }
@@ -251,15 +278,18 @@ int getDadosOrdenadosDeTodasEstruturasAuxiliares(int vetorAux[])
     int iCont, tamTotal = 0;
     int retorno;
 
-    retorno =  getDadosDeTodasEstruturasAuxiliares(vetorAux);
-    if(retorno == TODAS_ESTRUTURAS_AUXILIARES_VAZIAS){
+    retorno = getDadosDeTodasEstruturasAuxiliares(vetorAux);
+    if (retorno == TODAS_ESTRUTURAS_AUXILIARES_VAZIAS)
+    {
         return retorno;
     }
 
-    for(iCont = 0; iCont < TAM; iCont++){
-        if(vetorPrincipal[iCont] != NULL){
+    for (iCont = 0; iCont < TAM; iCont++)
+    {
+        if (vetorPrincipal[iCont] != NULL)
+        {
             tamTotal += vetorPrincipal[iCont]->posUltimoValor;
-        }  
+        }
     }
 
     insertionSort(vetorAux, tamTotal);
@@ -279,10 +309,37 @@ Rertono (int)
 */
 int modificarTamanhoEstruturaAuxiliar(int posicao, int novoTamanho)
 {
+    if (posicao < 1 || posicao > 10) {
+        return POSICAO_INVALIDA;
+    }
 
-    int retorno = 0;
-    return retorno;
+    if (vetorPrincipal[posicao - 1] == NULL) {
+        return SEM_ESTRUTURA_AUXILIAR;
+    }
+
+    int novoTamanhoTotal = vetorPrincipal[posicao - 1]->tam + novoTamanho;
+
+    if (novoTamanhoTotal <= 0) {
+        return NOVO_TAMANHO_INVALIDO;
+    }
+
+    if (vetorPrincipal[posicao - 1]->posUltimoValor > novoTamanhoTotal) {
+        vetorPrincipal[posicao - 1]->posUltimoValor = novoTamanhoTotal;
+    }
+
+    vetorPrincipal[posicao - 1]->tam = novoTamanhoTotal;
+
+    int *novoArray = realloc(vetorPrincipal[posicao - 1]->array, novoTamanhoTotal * sizeof(int));
+
+    if (novoArray == NULL) {
+        return SEM_ESPACO_DE_MEMORIA;
+    }
+
+    vetorPrincipal[posicao - 1]->array = novoArray;
+
+    return SUCESSO;
 }
+
 
 /*
 Objetivo: retorna a quantidade de elementos preenchidos da estrutura auxiliar da posição 'posicao'.
@@ -326,7 +383,7 @@ void getDadosListaEncadeadaComCabecote(No *inicio, int vetorAux[])
 Objetivo: Destruir a lista encadeada com cabeçote a partir de início.
 O ponteiro inicio deve ficar com NULL.
 
-Retorno 
+Retorno
     void.
 */
 void destruirListaEncadeadaComCabecote(No **inicio)
@@ -334,20 +391,22 @@ void destruirListaEncadeadaComCabecote(No **inicio)
 }
 
 /*
-Objetivo: inicializa o programa. deve ser chamado ao inicio do programa 
+Objetivo: inicializa o programa. deve ser chamado ao inicio do programa
 
 */
 
-void inicializar(){
+void inicializar()
+{
     int iCont;
 
-    for(iCont = 0; iCont < 10; iCont++){
+    for (iCont = 0; iCont < 10; iCont++)
+    {
         vetorPrincipal[iCont] = NULL;
     }
 }
 
 /*
-Objetivo: finaliza o programa. deve ser chamado ao final do programa 
+Objetivo: finaliza o programa. deve ser chamado ao final do programa
 para poder liberar todos os espaços de memória das estruturas auxiliares.
 
 */
@@ -356,11 +415,14 @@ void finalizar()
 {
 }
 
-int buscarValorEmVetorAuxiliar(int valor, EstrutraAux estruturaAuxiliar){
+int buscarValorEmVetorAuxiliar(int valor, EstrutraAux estruturaAuxiliar)
+{
     int iCont;
 
-    for(iCont = 0; iCont < estruturaAuxiliar.posUltimoValor; iCont++){
-        if(estruturaAuxiliar.array[iCont] ==  valor){
+    for (iCont = 0; iCont < estruturaAuxiliar.posUltimoValor; iCont++)
+    {
+        if (estruturaAuxiliar.array[iCont] == valor)
+        {
             return iCont;
         }
     }
@@ -368,14 +430,17 @@ int buscarValorEmVetorAuxiliar(int valor, EstrutraAux estruturaAuxiliar){
     return -1;
 }
 
-void insertionSort(int array[], int size){
+void insertionSort(int array[], int size)
+{
     int iCont, jCont, key;
 
-    for(iCont  = 1; iCont < size; iCont++){
+    for (iCont = 1; iCont < size; iCont++)
+    {
         key = array[iCont];
         jCont = iCont - 1;
 
-        while(jCont >= 0 && array[jCont] > key){
+        while (jCont >= 0 && array[jCont] > key)
+        {
             array[jCont + 1] = array[jCont];
             jCont--;
         }
