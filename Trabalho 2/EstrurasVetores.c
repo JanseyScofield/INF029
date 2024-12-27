@@ -212,10 +212,12 @@ Rertono (int)
 */
 int getDadosDeTodasEstruturasAuxiliares(int vetorAux[]){
     int iCont, jCont, kCont;
-
-    for(iCont = 0; iCont < TAM; iCont ++){
+    
+    for(iCont = 1; iCont < TAM; iCont ++){
         if(vetorPrincipal[iCont] != NULL){
-            break;
+           if(vetorPrincipal[iCont]->posUltimoValor != 0){
+                break;
+           }
         }
     }
     
