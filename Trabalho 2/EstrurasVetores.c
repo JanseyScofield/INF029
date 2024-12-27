@@ -275,7 +275,7 @@ Rertono (int)
 */
 int getDadosOrdenadosDeTodasEstruturasAuxiliares(int vetorAux[])
 {
-    int iCont, tamTotal = 0;
+    int iCont, tamTotal;
     int retorno;
 
     retorno = getDadosDeTodasEstruturasAuxiliares(vetorAux);
@@ -284,14 +284,8 @@ int getDadosOrdenadosDeTodasEstruturasAuxiliares(int vetorAux[])
         return retorno;
     }
 
-    for (iCont = 0; iCont < TAM; iCont++)
-    {
-        if (vetorPrincipal[iCont] != NULL)
-        {
-            tamTotal += vetorPrincipal[iCont]->posUltimoValor;
-        }
-    }
-
+    tamTotal = getQtdNumerosTotais();
+    
     insertionSort(vetorAux, tamTotal);
     return retorno;
 }
@@ -376,6 +370,8 @@ Retorno (No*)
 */
 No *montarListaEncadeadaComCabecote()
 {
+    No *cabecote = malloc(sizeof(No));
+    
 
     return NULL;
 }
@@ -457,3 +453,17 @@ void insertionSort(int array[], int size)
         array[jCont + 1] = key;
     }
 }
+
+int getQtdNumerosTotais(){
+    int iCont, tamTotal =0;
+
+    for (iCont = 0; iCont < TAM; iCont++)
+    {
+        if (vetorPrincipal[iCont] != NULL)
+        {
+            tamTotal += vetorPrincipal[iCont]->posUltimoValor;
+        }
+    }
+
+    return tamTotal;
+}   
