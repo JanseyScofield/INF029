@@ -453,8 +453,15 @@ para poder liberar todos os espaços de memória das estruturas auxiliares.
 
 */
 
-void finalizar()
-{
+void finalizar(){
+    int iCont;
+
+    for(iCont = 0; iCont < TAM; iCont++){
+        if(vetorPrincipal[iCont] != NULL){
+            free(vetorPrincipal[iCont]);
+            vetorPrincipal[iCont] = NULL;
+        }
+    }
 }
 
 int buscarValorEmVetorAuxiliar(int valor, EstrutraAux estruturaAuxiliar)
