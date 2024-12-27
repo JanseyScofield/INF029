@@ -428,6 +428,8 @@ Retorno
 */
 void destruirListaEncadeadaComCabecote(No **inicio)
 {
+    free(*inicio);
+    *inicio = NULL;
 }
 
 /*
