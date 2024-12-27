@@ -386,9 +386,14 @@ No *montarListaEncadeadaComCabecote()
 
     for(iCont = 0;iCont < tamTotal; iCont ++){
         aux->conteudo = vetAux[iCont];
-        No *proximoConteudo = malloc(sizeof(No));
-        aux->prox = proximoConteudo;
-        aux = proximoConteudo;
+        if(iCont == tamTotal - 1){
+            aux->prox == NULL;
+        }
+        else{
+            No *proximoConteudo = malloc(sizeof(No));
+            aux->prox = proximoConteudo;
+            aux = proximoConteudo;
+        }
     }
 
     return cabecote;
@@ -400,6 +405,18 @@ Retorno void
 */
 void getDadosListaEncadeadaComCabecote(No *inicio, int vetorAux[])
 {
+    if(inicio  == NULL){
+        return;
+    }
+
+    No *aux = inicio->prox;
+    int iCont = 0;
+
+    while(aux != NULL){
+        vetorAux[iCont] = aux->conteudo;
+        aux = aux->prox;
+        iCont++;
+    }
 }
 
 /*
