@@ -197,7 +197,7 @@ int getDadosOrdenadosEstruturaAuxiliar(int posicao, int vetorAux[])
         return retorno;
     }
     
-    insertionSort(vetorAux, vetorPrincipal[posicao  - 1]->tam);
+    insertionSort(vetorAux, vetorPrincipal[posicao  - 1]->posUltimoValor);
 
     return retorno;
 }
@@ -211,12 +211,28 @@ Rertono (int)
     TODAS_ESTRUTURAS_AUXILIARES_VAZIAS - todas as estruturas auxiliares estão vazias
 */
 int getDadosDeTodasEstruturasAuxiliares(int vetorAux[]){
-    int iCont;
-    int todasVazias = 0;
+    int iCont, jCont, kCont;
 
     for(iCont = 0; iCont < TAM; iCont ++){
-
+        if(vetorPrincipal[iCont] != NULL){
+            break;
+        }
     }
+    
+    if(iCont == TAM){
+        return TODAS_ESTRUTURAS_AUXILIARES_VAZIAS;
+    }
+    
+    kCont = 0;
+    for(iCont = 0; iCont < TAM; iCont++){
+        if(vetorPrincipal[iCont] != NULL){
+            for(jCont = 0; jCont < vetorPrincipal[iCont]->posUltimoValor;jCont++){
+                vetorAux[kCont] = vetorPrincipal[iCont]->array[jCont];
+                kCont++;
+            }
+        }
+    }
+
     return SUCESSO;
 }
 
