@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-#define TAM 10
 
 #include "EstruturaVetores.h"
 
@@ -175,7 +174,7 @@ int getDadosEstruturaAuxiliar(int posicao, int vetorAux[])
         return SEM_ESTRUTURA_AUXILIAR;
     }
 
-    for(iCont = 0; iCont <= vetorPrincipal[posicao  - 1]->posUltimoValor; iCont++){
+    for(iCont = 0; iCont < vetorPrincipal[posicao  - 1]->posUltimoValor; iCont++){
         vetorAux[iCont] = vetorPrincipal[posicao - 1]->array[iCont];
     }
 
@@ -211,11 +210,14 @@ Rertono (int)
     SUCESSO - recuperado com sucesso os valores da estrutura na posição 'posicao'
     TODAS_ESTRUTURAS_AUXILIARES_VAZIAS - todas as estruturas auxiliares estão vazias
 */
-int getDadosDeTodasEstruturasAuxiliares(int vetorAux[])
-{
+int getDadosDeTodasEstruturasAuxiliares(int vetorAux[]){
+    int iCont;
+    int todasVazias = 0;
 
-    int retorno = 0;
-    return retorno;
+    for(iCont = 0; iCont < TAM; iCont ++){
+
+    }
+    return SUCESSO;
 }
 
 /*
@@ -326,7 +328,7 @@ void finalizar()
 int buscarValorEmVetorAuxiliar(int valor, EstrutraAux estruturaAuxiliar){
     int iCont;
 
-    for(iCont = 0; iCont <= estruturaAuxiliar.posUltimoValor; iCont++){
+    for(iCont = 0; iCont < estruturaAuxiliar.posUltimoValor; iCont++){
         if(estruturaAuxiliar.array[iCont] ==  valor){
             return iCont;
         }
