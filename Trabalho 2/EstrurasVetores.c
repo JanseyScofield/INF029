@@ -285,7 +285,7 @@ int getDadosOrdenadosDeTodasEstruturasAuxiliares(int vetorAux[])
     }
 
     tamTotal = getQtdNumerosTotais();
-    
+
     insertionSort(vetorAux, tamTotal);
     return retorno;
 }
@@ -370,10 +370,28 @@ Retorno (No*)
 */
 No *montarListaEncadeadaComCabecote()
 {
-    No *cabecote = malloc(sizeof(No));
-    
+    int iCont, tamTotal;
 
-    return NULL;
+    tamTotal = getQtdNumerosTotais();
+    if(tamTotal == 0){
+        return NULL;
+    }
+
+    No *cabecote = malloc(sizeof(No));
+    No *aux = malloc(sizeof(No));
+    cabecote->prox = aux;
+
+    int *vetAux = malloc(sizeof(int) * tamTotal);
+    getDadosDeTodasEstruturasAuxiliares(vetAux);
+
+    for(iCont = 0;iCont < tamTotal; iCont ++){
+        aux->conteudo = vetAux[iCont];
+        No *proximoConteudo = malloc(sizeof(No));
+        aux->prox = proximoConteudo;
+        aux = proximoConteudo;
+    }
+
+    return cabecote;
 }
 
 /*
@@ -455,7 +473,7 @@ void insertionSort(int array[], int size)
 }
 
 int getQtdNumerosTotais(){
-    int iCont, tamTotal =0;
+    int iCont, tamTotal = 0;
 
     for (iCont = 0; iCont < TAM; iCont++)
     {
