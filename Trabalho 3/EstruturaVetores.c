@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #include "EstruturaVetores.h"
 
@@ -445,6 +446,7 @@ void inicializar()
     {
         vetorPrincipal[iCont] = NULL;
     }
+
 }
 
 /*
@@ -510,4 +512,31 @@ int getQtdNumerosTotais(){
     }
 
     return tamTotal;
-}   
+} 
+
+int converterStringInt(char *string){
+    int iCont = 0, casasNum, base;
+    int negativo = 0;
+    int num = 0;
+
+    if(string[0] == '-'){
+        negativo = 1;
+        iCont++;
+    }
+
+    casasNum = iCont ;
+    base = 1;
+    while(casasNum < strlen(string) - 1){
+        casasNum ++;
+        base *= 10; 
+    }
+
+    while(casasNum > 0){
+        num += (string[iCont] - '0') * base;
+        casasNum--;
+        base /= 10;
+        iCont++;
+    }
+
+    return negativo ? num * -1 : num;
+}

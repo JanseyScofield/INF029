@@ -37,6 +37,7 @@ void destruirListaEncadeadaComCabecote(No **inicio);
 int buscarValorEmVetorAuxiliar(int valor, EstrutraAux estruturaAuxiliar);
 void insertionSort(int array[], int size);
 int getQtdNumerosTotais();
+int converterStringInt(char *string);
 
 void inicializar();
 void finalizar();
