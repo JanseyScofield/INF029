@@ -447,6 +447,30 @@ void inicializar()
         vetorPrincipal[iCont] = NULL;
     }
 
+    FILE *baseDados = fopen("DataBase.txt", "r");
+    if(baseDados){
+        char *linha = malloc(sizeof(char) * 1024);
+        while(fgets(linha, 1024, baseDados)){
+            for(iCont = 0; linha[iCont] != '\n'; iCont++){
+                int posicao, tam;
+                char *numero = malloc(sizeof(char) * 10);
+                if(iCont == 0){
+                    adquirirStringNumero(linha, &iCont, numero);
+                    posicao = converterStringInt(numero);
+                    adquirirStringNumero(linha, &iCont, numero);               
+                    tam = converterStringInt(numero);
+                    criarEstruturaAuxiliar(posicao, tam);
+                }
+
+                adquirirStringNumero(linha, &iCont, numero);               
+                inserirNumeroEmEstrutura(posicao, converterStringInt(numero));
+            }
+        }
+    }
+    else{
+        baseDados = fopen("DataBase.txt", "w");
+    }
+    fclose(baseDados);
 }
 
 /*
@@ -456,14 +480,28 @@ para poder liberar todos os espaços de memória das estruturas auxiliares.
 */
 
 void finalizar(){
-    int iCont;
-
+    int iCont, jCont;
+    FILE *baseDados = fopen("DataBase.txt", "w");
+    
     for(iCont = 0; iCont < TAM; iCont++){
         if(vetorPrincipal[iCont] != NULL){
+            int tamEstrutura = vetorPrincipal[iCont]->posUltimoValor;
+            int vetorAux[tamEstrutura];
+            
+            fprintf(baseDados, "%d;%d;", iCont + 1, tamEstrutura);
+            getDadosEstruturaAuxiliar(iCont + 1, vetorAux);
+            
+            for(jCont = 0; jCont < tamEstrutura; jCont++){
+                fprintf(baseDados, "%d;",vetorAux[jCont]);
+            }
+                        
+            fprintf(baseDados,"\n");
+
             free(vetorPrincipal[iCont]);
             vetorPrincipal[iCont] = NULL;
         }
     }
+    fclose(baseDados);
 }
 
 int buscarValorEmVetorAuxiliar(int valor, EstrutraAux estruturaAuxiliar)
@@ -539,4 +577,14 @@ int converterStringInt(char *string){
     }
 
     return negativo ? num * -1 : num;
+}
+
+void adquirirStringNumero(char *linha, int *posAtual, char *numero){
+    int jCont = 0;
+    while(linha[*posAtual] != ';'){
+        numero[jCont] = linha[*posAtual];
+        *posAtual++;
+        jCont++;
+    }
+    numero[jCont] = '\0';
 }

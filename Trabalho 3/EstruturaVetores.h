@@ -38,6 +38,7 @@ int buscarValorEmVetorAuxiliar(int valor, EstrutraAux estruturaAuxiliar);
 void insertionSort(int array[], int size);
 int getQtdNumerosTotais();
 int converterStringInt(char *string);
+void adquirirStringNumero(char *linha, int *posAtual, char *numero);
 
 void inicializar();
 void finalizar();
