@@ -24,7 +24,6 @@ int criarEstruturaAuxiliar(int posicao, int tamanho)
     // se posição é um valor válido {entre 1 e 10}
     if (posicao < 1 || posicao > 10)
         return POSICAO_INVALIDA;
-
     if (vetorPrincipal[posicao - 1] != NULL)
         return JA_TEM_ESTRUTURA_AUXILIAR;
 
@@ -449,9 +448,10 @@ void inicializar()
 
     FILE *baseDados = fopen("DataBase.txt", "r");
     if(baseDados){
-        char *linha = malloc(sizeof(char) * 1024);
-        while(fgets(linha, 1024, baseDados)){
-            for(iCont = 0; linha[iCont] != '\n'; iCont++){
+        int tamLinha = 1024;
+        char *linha = malloc(sizeof(char) * tamLinha);
+        while(fgets(linha, tamLinha, baseDados) != NULL){
+            for(iCont = 0; linha[iCont] != '\n'; ){
                 int posicao, tam;
                 char *numero = malloc(sizeof(char) * 10);
                 if(iCont == 0){
@@ -461,11 +461,11 @@ void inicializar()
                     tam = converterStringInt(numero);
                     criarEstruturaAuxiliar(posicao, tam);
                 }
-
                 adquirirStringNumero(linha, &iCont, numero);               
                 inserirNumeroEmEstrutura(posicao, converterStringInt(numero));
             }
         }
+        free(linha);
     }
     else{
         baseDados = fopen("DataBase.txt", "w");
@@ -486,8 +486,7 @@ void finalizar(){
     for(iCont = 0; iCont < TAM; iCont++){
         if(vetorPrincipal[iCont] != NULL){
             int tamEstrutura = vetorPrincipal[iCont]->posUltimoValor;
-            int vetorAux[tamEstrutura];
-            
+            int vetorAux[tamEstrutura];            
             fprintf(baseDados, "%d;%d;", iCont + 1, tamEstrutura);
             getDadosEstruturaAuxiliar(iCont + 1, vetorAux);
             
@@ -556,22 +555,23 @@ int converterStringInt(char *string){
     int iCont = 0, casasNum, base;
     int negativo = 0;
     int num = 0;
+    int tam = strlen(string);
 
     if(string[0] == '-'){
         negativo = 1;
         iCont++;
     }
 
-    casasNum = iCont ;
+    casasNum = tam - 1; 
     base = 1;
-    while(casasNum < strlen(string) - 1){
-        casasNum ++;
-        base *= 10; 
+
+    while (casasNum > iCont) {
+        base *= 10;
+        casasNum--;
     }
 
-    while(casasNum > 0){
-        num += (string[iCont] - '0') * base;
-        casasNum--;
+    while (iCont < tam) { 
+        num += (string[iCont] - '0') * base; 
         base /= 10;
         iCont++;
     }
@@ -579,12 +579,15 @@ int converterStringInt(char *string){
     return negativo ? num * -1 : num;
 }
 
-void adquirirStringNumero(char *linha, int *posAtual, char *numero){
+void adquirirStringNumero(char *linha, int *posAtual, char *numero) {
     int jCont = 0;
-    while(linha[*posAtual] != ';'){
-        numero[jCont] = linha[*posAtual];
-        *posAtual++;
+
+    while (linha[*posAtual] != ';' && linha[*posAtual] != '\0') {
+        numero[jCont] = linha[*posAtual]; 
+        (*posAtual)++; 
         jCont++;
     }
+    
     numero[jCont] = '\0';
+    (*posAtual)++;
 }
